@@ -56,7 +56,7 @@ public class ByteItemTask implements AmountTask {
         ItemStackSnapshot item = getItem(byteItemId);
         return Text.of(TextColors.YELLOW, "ByteItem ",
                 "(",
-                TextColors.AQUA, TextActions.showItem(item), item.get(Keys.DISPLAY_NAME).orElse(Text.of(item.getTranslation())),
+                TextColors.AQUA, TextActions.showItem(item), item.get(Keys.DISPLAY_NAME).orElse(Text.of(item.toString())),
                 TextColors.YELLOW,
                 ")"
         );

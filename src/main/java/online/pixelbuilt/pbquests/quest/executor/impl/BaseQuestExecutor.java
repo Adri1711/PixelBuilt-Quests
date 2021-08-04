@@ -40,7 +40,6 @@ public class BaseQuestExecutor implements QuestExecutor {
         this.questLine = questLine;
         this.player = player.getUniqueId();
         this.playerData = PixelBuiltQuests.getStorage().getData(this.player);
-
         if (playerData.hasStarted(questLine, quest)) {
             this.run();
         } else {

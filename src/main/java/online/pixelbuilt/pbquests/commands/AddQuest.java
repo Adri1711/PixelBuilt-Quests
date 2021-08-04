@@ -2,6 +2,7 @@ package online.pixelbuilt.pbquests.commands;
 
 import online.pixelbuilt.pbquests.PixelBuiltQuests;
 import online.pixelbuilt.pbquests.storage.sql.Trigger;
+import online.pixelbuilt.pbquests.storage.sql.Trigger.Type;
 import online.pixelbuilt.pbquests.quest.Quest;
 import online.pixelbuilt.pbquests.quest.QuestLine;
 import online.pixelbuilt.pbquests.utils.Util;
@@ -25,9 +26,9 @@ public class AddQuest extends BaseCommand {
         }
 
         Player p = (Player) src;
-        Quest quest = args.requireOne("quest");
-        QuestLine line = args.requireOne("quest line");
-        Trigger.Type type = args.requireOne("type");
+        Quest quest = (Quest) args.getOne("quest").get();
+        QuestLine line = (QuestLine) args.getOne("quest line").get();
+        Trigger.Type type = (Type) args.getOne("type").get();
         boolean cancelOriginalAction = args.<Boolean>getOne("cancel action").orElse(true);
 
         if (type == Trigger.Type.NPC) {

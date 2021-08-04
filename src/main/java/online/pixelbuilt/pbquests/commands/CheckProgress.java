@@ -14,8 +14,8 @@ public class CheckProgress extends BaseCommand {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        User user = args.requireOne("player");
-        QuestLine line = args.requireOne("quest line");
+        User user = (User) args.getOne("player").get();
+        QuestLine line = (QuestLine) args.getOne("quest line").get();
 
         PlayerData data = storageManager.getData(user.getUniqueId());
         src.sendMessage(Util.toText(ConfigManager.getConfig().messages.currentProgress

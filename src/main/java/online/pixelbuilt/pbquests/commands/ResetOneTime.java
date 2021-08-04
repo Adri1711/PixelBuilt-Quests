@@ -14,8 +14,8 @@ public class ResetOneTime extends BaseCommand {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        QuestLine line = args.requireOne("quest line");
-        User user = args.requireOne("player");
+        QuestLine line = (QuestLine) args.getOne("quest line").get();
+        User user = (User) args.getOne("player").get();
 
         PlayerData data = storageManager.getData(user.getUniqueId());
         data.resetQuestLine(line);

@@ -68,7 +68,7 @@ public class CostTask implements AmountTask {
 
         UniqueAccount account = service.getOrCreateAccount(data.id).get();
         BigDecimal cost = new BigDecimal(this.cost);
-        TransactionResult result = account.withdraw(service.getDefaultCurrency(), cost, Sponge.getCauseStackManager().getCurrentCause());
+        TransactionResult result = account.withdraw(service.getDefaultCurrency(), cost, null);
         if (result.getResult() != ResultType.SUCCESS) {
             data.getUser().getPlayer().ifPresent(p ->
                     p.sendMessage(Util.toText(ConfigManager.getConfig().messages.noMoney

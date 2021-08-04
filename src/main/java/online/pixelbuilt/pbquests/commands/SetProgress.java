@@ -14,9 +14,9 @@ public class SetProgress extends BaseCommand {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        User user = args.requireOne("player");
-        QuestLine line = args.requireOne("quest line");
-        int progress = args.requireOne("progress");
+        User user = (User) args.getOne("player").get();
+        QuestLine line = (QuestLine) args.getOne("quest line").get();
+        int progress = (int) args.getOne("progress").get();
 
         PlayerData data = storageManager.getData(user.getUniqueId());
         data.setProgress(line, progress);

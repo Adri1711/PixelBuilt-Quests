@@ -17,53 +17,82 @@ import java.util.UUID;
  * Created by Frani on 17/12/2017.
  */
 @DatabaseTable(tableName = "triggers")
-public class Trigger extends BaseDaoEnabled<Trigger, UUID> {
+public class Trigger extends BaseDaoEnabled<Trigger, UUID> implements Comparable<Trigger> {
 
-    public Trigger() {}
+	public Trigger() {
+	}
 
-    @DatabaseField(id = true)
-    public UUID npc;
+	@DatabaseField(id = true)
+	public UUID npc;
 
-    @DatabaseField
-    private String line;
+	@DatabaseField
+	private String line;
 
-    @DatabaseField
-    private int questId;
+	@DatabaseField
+	private int questId;
 
-    @DatabaseField
-    public Type type;
+	@DatabaseField
+	public Type type;
 
-    @DatabaseField(persisterClass = LocationPersister.class)
-    public Location<World> location;
+	@DatabaseField(persisterClass = LocationPersister.class)
+	public Location<World> location;
 
-    @DatabaseField
-    public boolean cancelOriginalAction = true;
+	@DatabaseField
+	public boolean cancelOriginalAction = true;
 
-    public Trigger(Location<World> loc, Quest quest, QuestLine line, Type type, UUID npc, boolean cancelOriginalAction) {
-        this.location = loc;
-        this.line = line.getName();
-        this.questId = quest.getId();
-        this.type = type;
-        this.npc = npc == null ? UUID.randomUUID() : npc;
-        this.cancelOriginalAction = cancelOriginalAction;
-    }
+	public Trigger(Location<World> loc, Quest quest, QuestLine line, Type type, UUID npc,
+			boolean cancelOriginalAction) {
+		this.location = loc;
+		this.line = line.getName();
+		this.questId = quest.getId();
+		this.type = type;
+		this.npc = npc == null ? UUID.randomUUID() : npc;
+		this.cancelOriginalAction = cancelOriginalAction;
+	}
 
-    public Quest getQuest() {
-        return ConfigManager.getQuest(this.questId);
-    }
+	public Quest getQuest() {
+		return ConfigManager.getQuest(this.questId);
+	}
 
-    public QuestLine getQuestLine() {
-        return ConfigManager.getLine(this.line);
-    }
+	public QuestLine getQuestLine() {
+		return ConfigManager.getLine(this.line);
+	}
 
-    public enum Type {
+	public enum Type {
 
-        WALK,
-        CLICK,
-        RIGHT_CLICK,
-        LEFT_CLICK,
-        NPC
+		WALK, CLICK, RIGHT_CLICK, LEFT_CLICK, NPC
 
-    }
+	}
+
+	public UUID getNpc() {
+		return npc;
+	}
+
+	public String getLine() {
+		return line;
+	}
+
+	public int getQuestId() {
+		return questId;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public Location<World> getLocation() {
+		return location;
+	}
+
+	public boolean isCancelOriginalAction() {
+		return cancelOriginalAction;
+	}
+
+	@Override
+	public int compareTo(Trigger o) {
+
+		return getLine().equals(o.getLine()) ? (getQuestId() > o.getQuestId() ? 1 : -1)
+				: getLine().compareTo(o.getLine());
+	}
 
 }

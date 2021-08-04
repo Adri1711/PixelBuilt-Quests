@@ -20,7 +20,7 @@ public class Rename extends BaseCommand {
         }
         Player p = (Player) src;
 
-        Text name = args.requireOne("name");
+        Text name = (Text) args.getOne("name").get();
         p.sendMessage(Text.of(
                 TextColors.GREEN, "Click in the entity that you want to rename!"
         ));

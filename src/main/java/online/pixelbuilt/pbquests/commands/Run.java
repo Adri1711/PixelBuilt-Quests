@@ -13,8 +13,8 @@ public class Run extends BaseCommand {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        QuestLine line = args.requireOne("quest line");
-        Quest quest = args.requireOne("quest");
+        QuestLine line = (QuestLine) args.getOne("quest line").get();
+        Quest quest = (Quest) args.getOne("quest").get();
         Player player = args.<Player>getOne("player").orElse(null);
         if (player == null) {
             if (!(src instanceof Player))

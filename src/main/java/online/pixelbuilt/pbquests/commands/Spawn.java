@@ -25,16 +25,16 @@ public class Spawn extends BaseCommand {
                 .build();
         Optional<BlockRayHit<World>> hitOpt = blockRay.end();
         if(hitOpt.isPresent()) {
-            EntityType entity = args.requireOne("type");
+            EntityType entity =  (EntityType) args.getOne("type").get();
 
             Entity npc = hitOpt.get().getExtent().createEntity(entity, hitOpt.get().getPosition());
             npc.offer(Keys.PERSISTS, true);
             npc.offer(Keys.AI_ENABLED, false);
             npc.offer(Keys.CUSTOM_NAME_VISIBLE, true);
             npc.offer(Keys.INVULNERABILITY_TICKS, Integer.MAX_VALUE);
-            npc.offer(Keys.INVULNERABLE, true);
+//            npc.offer(Keys.INVULNERABLE, true);
             npc.offer(Keys.HAS_GRAVITY, false);
-            hitOpt.get().getExtent().spawnEntity(npc);
+//            hitOpt.get().getExtent().spawnEntity(npc,null);
 
             src.sendMessage(Text.of(
                     TextColors.GREEN, "Successfully spawned NPC! Assign a quest to it now!"

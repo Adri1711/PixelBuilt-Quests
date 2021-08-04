@@ -18,7 +18,7 @@ public class Triggers extends BaseCommand {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        List<Text> text = storageManager.getTriggers().values().stream()
+        List<Text> text = storageManager.getTriggers().values().stream().flatMap(t-> t.stream())
                 .map(trigger -> {
                     Text teleport = Text.of(
                             TextActions.executeCallback(s -> {

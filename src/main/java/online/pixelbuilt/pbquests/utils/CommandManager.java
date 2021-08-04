@@ -109,7 +109,7 @@ public class CommandManager {
 
         CommandSpec rename = CommandSpec.builder()
                 .permission("pbq.command.rename")
-                .arguments(GenericArguments.text(Text.of("name"), TextSerializers.FORMATTING_CODE, true))
+                .arguments(GenericArguments.string(Text.of("name")))
                 .executor(new Rename())
                 .build();
 
